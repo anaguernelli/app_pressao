@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+
+<html lang="pt-br">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>
+        Histórico
+    </title>
+
+    <link
+        rel="stylesheet"
+        href="{{ url_for('static', filename='style.css') }}"
+    >
+
+</head>
+
+<body>
+
+    <div class="container">
+
+        <h1>
+            Histórico de Medições
+        </h1>
+
+        {% for medicao in medicoes %}
+
+        <div class="card {{ medicao[4] }}">
+
+            <h2>
+
+                {{ medicao[5] }}
+
+                {{ medicao[3] }}
+
+            </h2>
+
+            <h3>
+
+                {{ medicao[1] }}
+
+                x
+
+                {{ medicao[2] }}
+
+            </h3>
+
+            <p>
+
+                {{ medicao[6] }}
+
+            </p>
+
+        </div>
+
+        {% endfor %}
+
+        <a href="/">
+            Voltar
+        </a>
+
+    </div>
+
+</body>
+
+</html>

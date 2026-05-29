@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+
+<html lang="pt-br">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>
+        Monitor de Pressão
+    </title>
+
+    <link
+        rel="stylesheet"
+        href="{{ url_for('static', filename='style.css') }}"
+    >
+
+</head>
+
+<body>
+
+    <div class="container">
+
+        <h1>
+            Monitor de Pressão Arterial
+        </h1>
+
+        <form
+            action="/registrar"
+            method="POST"
+        >
+
+            <label>
+                Pressão Sistólica
+            </label>
+
+            <input
+                type="number"
+                name="sistolica"
+                placeholder="Ex: 12 ou 120"
+                required
+            >
+
+            <label>
+                Pressão Diastólica
+            </label>
+
+            <input
+                type="number"
+                name="diastolica"
+                placeholder="Ex: 8 ou 80"
+                required
+            >
+
+            <button type="submit">
+                Registrar Medição
+            </button>
+
+        </form>
+
+        <p class="info">
+
+            Você pode digitar:
+
+            12 para 120
+            ou
+            120 diretamente.
+
+        </p>
+
+        {% if ultima_medicao %}
+
+        <div class="card {{ ultima_medicao[4] }}">
+
+            <h2>
+
+                {{ ultima_medicao[5] }}
+
+                {{ ultima_medicao[3] }}
+
+            </h2>
+
+            <h3>
+
+                {{ ultima_medicao[1] }}
+
+                x
+
+                {{ ultima_medicao[2] }}
+
+            </h3>
+
+            <p>
+
+                {{ ultima_medicao[6] }}
+
+            </p>
+
+        </div>
+
+        {% endif %}
+
+        <a href="/historico">
+            Ver Histórico
+        </a>
+
+    </div>
+
+</body>
+
+</html>
