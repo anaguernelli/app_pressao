@@ -47,6 +47,8 @@ def criar_tabela():
             cor TEXT NOT NULL,
 
             emoji TEXT NOT NULL,
+            
+            mensagem TEXT NOT NULL,
 
             data_hora TEXT NOT NULL
         )
@@ -58,7 +60,6 @@ def criar_tabela():
 
 
 criar_tabela()
-
 
 # =========================
 # CLASSIFICAR PRESSÃO
@@ -97,7 +98,11 @@ def classificar_pressao(
         return {
             'categoria': 'NORMAL',
             'cor': 'verde',
-            'emoji': '🟢'
+            'emoji': '🟢',
+            'mensagem': (
+                'Pressão dentro da faixa normal. Continue mantendo '
+                'hábitos saudáveis.'
+            )
         }
 
 
@@ -194,6 +199,8 @@ def registrar():
 
     emoji = classificacao['emoji']
 
+    mensagem = classificacao['mensagem']
+
     data_hora = datetime.now().strftime(
         '%d/%m/%Y %H:%M'
     )
@@ -210,11 +217,12 @@ def registrar():
             categoria,
             cor,
             emoji,
+            mensagem,
             data_hora
 
         )
 
-        VALUES (?, ?, ?, ?, ?, ?)
+        VALUES (?, ?, ?, ?, ?, ?, ?)
 
     ''', (
 
@@ -223,6 +231,7 @@ def registrar():
         categoria,
         cor,
         emoji,
+        mensagem,
         data_hora
     ))
 
