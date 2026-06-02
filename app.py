@@ -61,6 +61,7 @@ def criar_tabela():
 
 criar_tabela()
 
+<<<<<<< HEAD
 conn = conectar()
 
 cursor = conn.cursor()
@@ -76,6 +77,8 @@ except:
 conn.commit()
 conn.close()
 
+=======
+>>>>>>> 75ea7725fd3159a210d41d300a783e058c17d2b8
 # =========================
 # CLASSIFICAR PRESSÃO
 # =========================
