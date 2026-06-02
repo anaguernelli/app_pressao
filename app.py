@@ -47,6 +47,8 @@ def criar_tabela():
             cor TEXT NOT NULL,
 
             emoji TEXT NOT NULL,
+            
+            mensagem TEXT NOT NULL,
 
             data_hora TEXT NOT NULL
         )
@@ -59,6 +61,20 @@ def criar_tabela():
 
 criar_tabela()
 
+conn = conectar()
+
+cursor = conn.cursor()
+
+try:
+    cursor.execute("""
+        ALTER TABLE medicoes
+        ADD COLUMN mensagem TEXT
+    """)
+except:
+    pass
+
+conn.commit()
+conn.close()
 
 # =========================
 # CLASSIFICAR PRESSÃO
@@ -97,7 +113,11 @@ def classificar_pressao(
         return {
             'categoria': 'NORMAL',
             'cor': 'verde',
-            'emoji': '🟢'
+            'emoji': '🟢',
+            'mensagem': (
+                'Pressão dentro da faixa normal. Continue mantendo '
+                'hábitos saudáveis.'
+            )
         }
 
 
@@ -110,7 +130,11 @@ def classificar_pressao(
         return {
             'categoria': 'ATENÇÃO',
             'cor': 'amarelo',
-            'emoji': '🟡'
+            'emoji': '🟡',
+            'mensagem': (
+                'Monitore sua pressão regularmente e mantenha '
+                'hábitos saudáveis.'
+            )
         }
 
 
@@ -123,7 +147,10 @@ def classificar_pressao(
         return {
             'categoria': 'HIPERTENSÃO',
             'cor': 'laranja',
-            'emoji': '🟠'
+            'emoji': '🟠',
+            'mensagem': (
+                'Procure orientação médica para acompanhamento da pressão.'
+            )
         }
 
 
@@ -132,7 +159,10 @@ def classificar_pressao(
         return {
             'categoria': 'RISCO ALTO',
             'cor': 'vermelho',
-            'emoji': '🔴'
+            'emoji': '🔴',
+            'mensagem': (
+                'Pressão muito alta. Procure atendimento médico imediato.'
+            )
         }
 
 
@@ -194,6 +224,8 @@ def registrar():
 
     emoji = classificacao['emoji']
 
+    mensagem = classificacao['mensagem']
+
     data_hora = datetime.now().strftime(
         '%d/%m/%Y %H:%M'
     )
@@ -210,11 +242,12 @@ def registrar():
             categoria,
             cor,
             emoji,
+            mensagem,
             data_hora
 
         )
 
-        VALUES (?, ?, ?, ?, ?, ?)
+        VALUES (?, ?, ?, ?, ?, ?, ?)
 
     ''', (
 
@@ -223,6 +256,7 @@ def registrar():
         categoria,
         cor,
         emoji,
+        mensagem,
         data_hora
     ))
 
